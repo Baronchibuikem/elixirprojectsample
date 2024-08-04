@@ -1,5 +1,5 @@
 {application,gettext,
-             [{config_mtime,1722767081},
+             [{config_mtime,1722804893},
               {optional_applications,[]},
               {applications,[kernel,stdlib,elixir,logger,expo]},
               {description,"Internationalization and localization through gettext"},

@@ -1,5 +1,5 @@
 {application,phoenix_pubsub,
-             [{config_mtime,1722767081},
+             [{config_mtime,1722804894},
               {optional_applications,[]},
               {applications,[kernel,stdlib,elixir,logger,crypto]},
               {description,"Distributed PubSub and Presence platform"},

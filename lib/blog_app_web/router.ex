@@ -24,9 +24,8 @@ defmodule BlogAppWeb.Router do
   scope "/api", BlogAppWeb do
     pipe_through :api
 
-    get "/blogs", BlogController, :index
-    post "/blogs", BlogController, :create
-    # Add other routes if needed
+    post "/posts", BlogController, :create
+    get "/posts/:id", BlogController, :show
   end
 
 

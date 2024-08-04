@@ -1,5 +1,5 @@
 {application,dns_cluster,
-             [{config_mtime,1722767081},
+             [{config_mtime,1722806057},
               {optional_applications,[]},
               {applications,[kernel,stdlib,elixir,logger]},
               {description,"Simple DNS clustering for distributed Elixir nodes"},
