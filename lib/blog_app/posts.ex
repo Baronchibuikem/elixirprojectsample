@@ -14,14 +14,11 @@ defmodule BlogApp.Posts do
     }
     IO.puts(post)
     case MongoRepo.insert_one(@collection, post_map) do
-      {:ok, result} ->
-        IO.puts("Insert result: #{inspect(result)}")
-        %{
-          "acknowledged" => result.acknowledged,
-          "inserted_id" => result.inserted_id
-        }
-      {:error, reason} ->
-        %{"error" => reason}
+      %{status: "success", inserted_id: id} ->
+        {:ok, id}
+
+      %{status: "error", message: message} ->
+        {:error, message}
     end
 
   end

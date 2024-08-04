@@ -12,7 +12,6 @@ defmodule BlogApp.MongoRepo do
   end
 
   def insert_one(collection, document) do
-    # Convert struct to map
     document_map = struct_to_map(document)
     GenServer.call(__MODULE__, {:insert_one, collection, document_map})
   end
@@ -23,8 +22,16 @@ defmodule BlogApp.MongoRepo do
 
   def handle_call({:insert_one, collection, document}, _from, %{pid: pid}) do
     try do
-      result = Mongo.insert_one(pid, collection, document)
-      {:reply, result, %{pid: pid}}
+      case Mongo.insert_one(pid, collection, document) do
+        {:ok, %Mongo.InsertOneResult{acknowledged: true, inserted_id: id}} ->
+          {:reply, %{status: "success", message: "Document inserted successfully", inserted_id: id}, %{pid: pid}}
+
+        {:ok, %Mongo.InsertOneResult{acknowledged: false}} ->
+          {:reply, %{status: "error", message: "Document insertion failed"}, %{pid: pid}}
+
+        {:error, reason} ->
+          {:reply, %{status: "error", message: "Insertion failed: #{inspect(reason)}"}, %{pid: pid}}
+      end
     rescue
       e in Mongo.Error ->
         {:reply, format_mongo_error(e), %{pid: pid}}
@@ -41,7 +48,6 @@ defmodule BlogApp.MongoRepo do
     end
   end
 
-  # Utility function to convert struct to map
   defp struct_to_map(%_{} = struct) do
     struct
     |> Map.from_struct()
@@ -55,7 +61,6 @@ defmodule BlogApp.MongoRepo do
 
   defp struct_to_map(map) when is_map(map), do: map
 
-  # Format MongoDB errors
   defp format_mongo_error(%Mongo.Error{message: message, code: code}) do
     %{
       error: message,
