@@ -10,12 +10,6 @@ import Config
 config :blog_app,
   generators: [timestamp_type: :utc_datetime]
 
-config :blog_app, BlogApp.Repo,
-  adapter: Mongo.Ecto,
-  database: "blog_app",
-  hostname: "localhost",
-  pool_size: 10
-
 # Configures the endpoint
 config :blog_app, BlogAppWeb.Endpoint,
   url: [host: "localhost"],

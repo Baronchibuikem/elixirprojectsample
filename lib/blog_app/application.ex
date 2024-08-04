@@ -8,8 +8,8 @@ defmodule BlogApp.Application do
   @impl true
   def start(_type, _args) do
     children = [
+      BlogApp.Mongo,
       BlogAppWeb.Telemetry,
-      BlogApp.Repo,
       {DNSCluster, query: Application.get_env(:blog_app, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: BlogApp.PubSub},
       # Start the Finch HTTP client for sending emails

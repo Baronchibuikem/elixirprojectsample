@@ -4,5 +4,11 @@ run_dev:
 run_terminal:
 	iex -S mix phx.server
 
-fetch_dep:
+install_dep:
 	mix deps.get
+
+clean-up:
+	mix deps.clean --all
+
+compile:
+	mix compile
