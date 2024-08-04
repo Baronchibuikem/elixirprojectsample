@@ -48,7 +48,9 @@ defmodule BlogApp.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
-      {:mongodb, "~> 1.0.1"}
+      {:mongodb_driver, "~> 1.4.0"},
+      {:httpoison, "~> 1.8"},
+      {:poison, "~> 4.0"}
     ]
   end
 

@@ -24,25 +24,25 @@ defmodule BlogApp.Mongo do
     Mongo.find(:mongo, collection, query, opts)
   end
 
-  # Wrapper function for find_one
-  def find_one(collection, query, opts \\ []) do
-    Mongo.find_one(:mongo, collection, query, opts)
-  end
+  # # Wrapper function for find_one
+  # def find_one(collection, query, opts \\ []) do
+  #   Mongo.find_one(:mongo, collection, query, opts)
+  # end
 
-  # Wrapper function for insert_one
-  def insert_one(collection, doc, opts \\ []) do
-    Mongo.insert_one(:mongo, collection, doc, opts)
-  end
+  # # Wrapper function for insert_one
+  # def insert_one(collection, doc, opts \\ []) do
+  #   Mongo.insert_one(:mongo, collection, doc, opts)
+  # end
 
-  # Wrapper function for update_one
-  def update_one(collection, filter, update, opts \\ []) do
-    Mongo.update_one(:mongo, collection, filter, update, opts)
-  end
+  # # Wrapper function for update_one
+  # def update_one(collection, filter, update, opts \\ []) do
+  #   Mongo.update_one(:mongo, collection, filter, update, opts)
+  # end
 
-  # Wrapper function for delete_one
-  def delete_one(collection, filter, opts \\ []) do
-    Mongo.delete_one(:mongo, collection, filter, opts)
-  end
+  # # Wrapper function for delete_one
+  # def delete_one(collection, filter, opts \\ []) do
+  #   Mongo.delete_one(:mongo, collection, filter, opts)
+  # end
 
   # Add other wrappers as needed...
 end

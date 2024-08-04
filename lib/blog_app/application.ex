@@ -8,7 +8,7 @@ defmodule BlogApp.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      BlogApp.Mongo,
+      {BlogApp.MongoRepo, [url: "mongodb://localhost:27017/blog", pool_size: 10]},
       BlogAppWeb.Telemetry,
       {DNSCluster, query: Application.get_env(:blog_app, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: BlogApp.PubSub},

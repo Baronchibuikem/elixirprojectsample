@@ -1,46 +1,27 @@
+# lib/blog_app_web/controllers/blog_controller.ex
 defmodule BlogAppWeb.BlogController do
   use BlogAppWeb, :controller
-
-  alias BlogApp.Repos.BlogRepo
-
-  def index(conn, _params) do
-    posts = BlogRepo.list_posts()
-    render(conn, "index.json", posts: posts)
-  end
+  alias BlogApp.Posts
 
   def create(conn, %{"post" => post_params}) do
-    case BlogRepo.create_post(post_params) do
-      {:ok, _post} ->
-        send_resp(conn, :created, "")
-      {:error, _reason} ->
-        send_resp(conn, :unprocessable_entity, "")
+    case Posts.create_post(post_params) do
+      {:ok, result} ->
+        json(conn, %{status: "success", result: result})
+      {:error, %Mongo.Error{} = error} ->
+        json(conn, %{status: "error", message: error.message, code: error.code})
+      _ ->
+        json(conn, %{status: "error", message: "Unknown error"})
     end
   end
 
   def show(conn, %{"id" => id}) do
-    case BlogRepo.get_post(id) do
-      {:error, :not_found} ->
-        send_resp(conn, :not_found, "")
+    case Posts.get_post(id) do
       {:ok, post} ->
-        render(conn, "show.json", post: post)
-    end
-  end
-
-  def update(conn, %{"id" => id, "post" => post_params}) do
-    case BlogRepo.update_post(id, post_params) do
-      {:ok, _post} ->
-        send_resp(conn, :no_content, "")
-      {:error, _reason} ->
-        send_resp(conn, :unprocessable_entity, "")
-    end
-  end
-
-  def delete(conn, %{"id" => id}) do
-    case BlogRepo.delete_post(id) do
-      {:ok, _post} ->
-        send_resp(conn, :no_content, "")
-      {:error, _reason} ->
-        send_resp(conn, :unprocessable_entity, "")
+        json(conn, post)
+      {:error, %Mongo.Error{} = error} ->
+        json(conn, %{status: "error", message: error.message, code: error.code})
+      _ ->
+        json(conn, %{status: "error", message: "Post not found"})
     end
   end
 end

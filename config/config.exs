@@ -10,6 +10,10 @@ import Config
 config :blog_app,
   generators: [timestamp_type: :utc_datetime]
 
+config :blog_app, BlogApi.MongoRepo,
+  url: "mongodb://localhost:27017/blog",
+  pool_size: 10
+
 # Configures the endpoint
 config :blog_app, BlogAppWeb.Endpoint,
   url: [host: "localhost"],
