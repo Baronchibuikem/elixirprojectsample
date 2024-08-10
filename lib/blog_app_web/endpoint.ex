@@ -22,7 +22,6 @@ defmodule BlogAppWeb.Endpoint do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
-    # Removed: plug Phoenix.Ecto.CheckRepoStatus, otp_app: :blog_app
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,
